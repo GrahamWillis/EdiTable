@@ -1,0 +1,34 @@
+<head>
+
+<script src="jquery/jquery-2.1.4.min.js"></script>
+
+
+<script>
+
+function exampleClosureForm(arg1, arg2){
+    var localVar = 8;
+    function exampleReturned(innerArg){
+        return ((arg1 + arg2)/(innerArg + localVar));
+    }
+    /* return a reference to the inner function defined as -
+       exampleReturned -:-
+    */
+    return exampleReturned;
+}
+
+var globalVar = exampleClosureForm(2, 4);
+
+
+
+//alert(x);
+$(document).ready(function() {
+	var x = globalVar(11);
+	console.log(x);
+});
+</script>
+
+
+</head>
+<body>
+</body>
+</html>

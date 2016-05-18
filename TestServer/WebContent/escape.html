@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+<script src="jquery/jquery-2.1.4.min.js"></script>
+<script src="js/sanitize.js"></script>
+
+<script type="text/javascript">
+
+	var x = "&lt;script&gt;alert('asdf');&lt;/script&gt;";
+
+	$(document).ready(function() {
+		$('label#ot').html(sanitze.HTMLEscape(x)); 
+	});
+
+</script>
+
+
+
+</head>
+<body>
+
+<label id="ot"></label>
+
+</body>
+</html>
+
+

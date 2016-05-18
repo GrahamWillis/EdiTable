@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+
+<link rel="stylesheet" href="jquery/jquery-ui.css">
+<script src="jquery/jquery-2.1.4.min.js"></script>
+<script src="js/sanitize.js"></script>
+<script src="jquery/jquery-ui.min.js"></script>
+<script src="js/edittable.js"></script>
+<script src="js/testdata.js"></script>
+
+<style>
+body {
+	font-family: sans-serif;
+	font-size: 11pt;
+}
+.header {
+	font-size: 10pt;
+}
+</style>
+
+<script>
+
+
+var g_tab;
+
+var g_columns = [{
+    header: '',
+    attribute: 'index',
+    hidden: true,
+    identifier: true
+}, {
+    header: 'Name',
+    attribute: 'name',
+    sortable: true,
+    searchable: true
+}, {
+    header: 'Gender',
+    attribute: 'gender',
+    selectable: true
+}, {
+    header: 'Age',
+    attribute: 'age',
+    searchable: true,
+    sortable: true
+}, {
+    header: 'Company',
+    attribute: 'company',
+    sortable: true,
+    selectable: true
+}, {
+	header: 'Balance',
+	attribute: 'balance',
+	sortable: true,
+	searchable: true
+}, {
+    header: 'Email',
+    attribute: 'email'
+}, {
+    header: 'Phone',
+    attribute: 'phone'
+}, {
+    header: 'Address',
+    attribute: 'address',
+    searchable: true,
+    sortable: true
+}];
+
+$(document).ready(function() {
+	
+	for (var item in window) {
+	    console.log(item);
+	}
+	
+	g_tab = $('table#test-table').edittable({ columns: g_columns, stripe: '#E0E0E0' });
+	g_tab.edittable('data', g_testdata);
+	g_tab.edittable('writeHeaders');
+	g_tab.edittable('fill');
+});
+
+</script>
+
+
+</head>
+<body>
+<table id="test-table"></table>
+
+
+</body>
+</html>

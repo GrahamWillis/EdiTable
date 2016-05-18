@@ -1,0 +1,98 @@
+<head>
+
+<script src="jquery/jquery-2.1.4.min.js"></script>
+
+
+<script>
+
+/* A general function that associates an object instance with an event
+handler. The returned inner function is used as the event handler.
+The object instance is passed as the - obj - parameter and the name
+of the method that is to be called on that object is passed as the -
+methodName - (string) parameter.
+*/
+function associateObjWithEvent(obj, methodName){
+ /* The returned inner function is intended to act as an event
+    handler for a DOM element:-
+ */
+ return (function(e){
+     /* The event object that will have been parsed as the - e -
+        parameter on DOM standard browsers is normalised to the IE
+        event object if it has not been passed as an argument to the
+        event handling inner function:-
+     */
+     e = e||window.event;
+     /* The event handler calls a method of the object - obj - with
+        the name held in the string - methodName - passing the now
+        normalised event object and a reference to the element to
+        which the event handler has been assigned using the - this -
+        (which works because the inner function is executed as a
+        method of that element because it has been assigned as an
+        event handler):-
+     */
+     return obj[methodName](e, this);
+ });
+}
+
+/* This constructor function creates objects that associates themselves
+with DOM elements whose IDs are passed to the constructor as a
+string. The object instances want to arrange than when the
+corresponding element triggers onclick, onmouseover and onmouseout
+events corresponding methods are called on their object instance.
+*/
+function DhtmlObject(elementId){
+ /* A function is called that retrieves a reference to the DOM
+    element (or null if it cannot be found) with the ID of the
+    required element passed as its argument. The returned value
+    is assigned to the local variable - el -:-
+ */
+ var el = getElementWithId(elementId);
+ /* The value of - el - is internally type-converted to boolean for
+    the - if - statement so that if it refers to an object the
+    result will be true, and if it is null the result false. So that
+    the following block is only executed if the - el - variable
+    refers to a DOM element:-
+ */
+ if(el){
+     /* To assign a function as the element's event handler this
+        object calls the - associateObjWithEvent - function
+        specifying itself (with the - this - keyword) as the object
+        on which a method is to be called and providing the name of
+        the method that is to be called. The - associateObjWithEvent
+        - function will return a reference to an inner function that
+        is assigned to the event handler of the DOM element. That
+        inner function will call the required method on the
+        javascript object when it is executed in response to
+        events:-
+     */
+     el.onclick = associateObjWithEvent(this, "doOnClick");
+     el.onmouseover = associateObjWithEvent(this, "doMouseOver");
+     el.onmouseout = associateObjWithEvent(this, "doMouseOut");
+     
+ }
+}
+
+DhtmlObject.prototype.doOnClick = function(event, element){
+   console.log('doOnClick: ' + event + ' ' + element);
+}
+
+DhtmlObject.prototype.doMouseOver = function(event, element){
+	console.log('doMouseOver: ' + event + ' ' + element);
+}
+
+DhtmlObject.prototype.doMouseOut = function(event, element){
+	console.log('doMouseOut: ' + event + ' ' + element);
+}
+
+document.addEventListener("DOMContentLoaded", function(event) { 
+	 //alert('Document ready!');
+	DhtmlObject('fg');
+})
+</script>
+
+
+</head>
+<body>
+<div id="fg" style="width: 25%; height:25%; background-color:blue;"></div>
+</body>
+</html>

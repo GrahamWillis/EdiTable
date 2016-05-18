@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	
+<head>
+
+<link rel="stylesheet" href="jquery/jquery-ui.css">
+<script src="jquery/jquery-2.1.4.min.js"></script>
+<script src="jquery/jquery-ui.min.js"></script>
+<script src="js/rsrautobox.js"></script>
+<script src="js/testdata.js"></script>
+
+<script>
+
+var arrRivers = [];
+
+$(document).ready(function() {
+
+	$.each(g_rivers_db, function(index, river) {
+		var riverObj = {};
+		riverObj.value = river.id;
+		riverObj.label = river.name;
+	    arrRivers.push(riverObj);
+	});
+	
+	$('#autocomplete').rsrautobox({
+		source: arrRivers, 
+		select: function(event, ui) {
+			$(this).val(ui.item.label);
+			console.log('select:base');
+			return false;
+		}
+	});
+});
+</script>
+
+
+</head>
+<body>
+	<label for="autocomplete">Select a river: </label>
+	<input id="autocomplete">	
+</body>
+</html>
